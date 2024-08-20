@@ -1,30 +1,30 @@
-exports.getAllUsers = (req, res) => {
+export function getAllUsers(req, res) {
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet implemented!',
+    status: "error",
+    message: "This route is not yet implemented!",
   });
-};
-exports.getUser = (req, res) => {
+}
+export function getUser(req, res) {
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet implemented!',
+    status: "error",
+    message: "This route is not yet implemented!",
   });
-};
-exports.createUser = (req, res) => {
+}
+export function createUser(req, res) {
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet implemented!',
+    status: "error",
+    message: "This route is not yet implemented!",
   });
-};
-exports.deleteUser = (req, res) => {
+}
+export function deleteUser(req, res) {
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet implemented!',
+    status: "error",
+    message: "This route is not yet implemented!",
   });
-};
-exports.updateUser = (req, res) => {
+}
+export function updateUser(req, res) {
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet implemented!',
+    status: "error",
+    message: "This route is not yet implemented!",
   });
-};
+}
