@@ -1,6 +1,7 @@
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { readFileSync } from "fs";
+import Tour from "../models/tourModel.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -53,29 +54,38 @@ export function getTour(req, res) {
   });
 }
 
-export function createTours(req, res) {
-  const newId = tours[tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId }, req.body);
+export async function createTours(req, res) {
+  try {
+    const { name, price, rating } = req.body;
 
-  tours.push(newTour);
-  writeFile(
-    `${__dirname}/dev-data/data/tours-simple.json`,
-    JSON.stringify(tours),
-    (err) => {
-      if (err) {
-        return res.status(500).json({
-          status: "fail",
-          message: "Error writing to file",
-        });
-      }
-      res.status(201).json({
-        status: "succes",
-        data: {
-          tour: newTour,
-        },
+    const newTour = new Tour({
+      name,
+      price,
+      rating,
+    });
+
+    const doc = await newTour.save();
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        tour: doc,
+      },
+    });
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      const errors = Object.values(err.errors).map((el) => el.message);
+      res.status(400).json({
+        status: "fail",
+        message: errors.join(", "),
       });
-    },
-  );
+    } else {
+      res.status(500).json({
+        status: "error",
+        message: "An internal server error occurred.",
+      });
+    }
+  }
 }
 
 export function updateTour(req, res) {
