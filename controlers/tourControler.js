@@ -56,15 +56,7 @@ export function getTour(req, res) {
 
 export async function createTours(req, res) {
   try {
-    const { name, price, rating } = req.body;
-
-    const newTour = new Tour({
-      name,
-      price,
-      rating,
-    });
-
-    const doc = await newTour.save();
+    const doc = await Tour.create(req.body);
 
     res.status(201).json({
       status: "success",
