@@ -1,35 +1,7 @@
 import { fileURLToPath } from "url";
-import { dirname } from "path";
-import { readFileSync } from "fs";
 import Tour from "../models/tourModel.js";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const tours = JSON.parse(
-  readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`),
-);
-
-export function checkId(req, res, next, val) {
-  console.log(`Tour id is: ${val}`);
-  if (req.params.id * 1 > tours.length) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Invalid ID",
-    });
-  }
-  next();
-}
-
-export function checkBody(req, res, next) {
-  if (!req.body.name || !req.body.price) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Missing name or price in request body",
-    });
-  }
-  next();
-}
 
 export function getAllTours(req, res) {
   res.status(200).json({
